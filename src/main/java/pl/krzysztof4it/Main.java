@@ -8,6 +8,9 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Krzysztof on 2017-08-04.
@@ -15,7 +18,7 @@ import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException, IOException, ParseException {
 
         String login = "admin";
         String pass= "admin";
@@ -43,9 +46,28 @@ public class Main {
         // TableUtils.createTable(connectionSource, Book.class); /*create DB from Book class*/
 
 
+        /*Insert data*/
 
+        Book book = new Book();
+        book.setTitle("Władce Pierścieni");
+        book.setIsbn("1111");
+        book.setAddedDate(new Date());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/DD");
+        String dateInString = "2012/05/05";
+        Date date = sdf.parse(dateInString);
+
+        book.setDateRelease(date);
+        book.setRating("1");
+        book.setBorrowed(true);
+        book.setPrice(22.50);
+
+        Dao<Book, ?> dao = DaoManager.createDao(connectionSource, Book.class);
+
+        dao.create(book);
         // close the connection source - zamknięcie połaczenia z DB
         connectionSource.close();
+
 
 
 
