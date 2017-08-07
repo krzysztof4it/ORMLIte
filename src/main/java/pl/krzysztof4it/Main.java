@@ -23,8 +23,8 @@ public class Main {
 
 
         // this uses h2 but you can change it to match your database
-        String databaseUrl = "jdbc:sqlite:database"; /*SQLite */
-        String databaseUrlH2 = "jdbc:h2:./database";
+        String databaseUrl = "jdbc:sqlite:databaseBook"; /*SQLite */
+        String databaseUrlH2 = "jdbc:h2:./databaseBook";
 
 
         /*jdbc - sterownik
@@ -37,19 +37,10 @@ public class Main {
         // create a connection source to our database, driver, login, pass
         ConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl, login, pass);
 
-        // instantiate the DAO to handle Account with String id - operacje na DB
-        Dao<Account,String> accountDao = DaoManager.createDao(connectionSource, Account.class);
-        // if you need to create the 'accounts' table make this call
-        TableUtils.createTable(connectionSource, Account.class);
 
-
-
-        Account account = new Account();
-        account.setName("Jim Smith");
-        account.setPassword("pass");
-
-        // persist the account object to the database
-        accountDao.create(account);
+        //TableUtils.dropTable(connectionSource, Book.class, true);
+        TableUtils.createTableIfNotExists(connectionSource, Book.class); /*tworzy jeśli nie istnieje*/
+        // TableUtils.createTable(connectionSource, Book.class); /*create DB from Book class*/
 
 
 
