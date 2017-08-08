@@ -126,4 +126,20 @@ public class Book {
     public void setPrice(double price) {
         this.price = price;
     }
+
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", addedDate=" + addedDate +
+                ", dateRelease=" + dateRelease +
+                ", rating='" + rating + '\'' +
+                ", borrowed=" + borrowed +
+                ", price=" + price +
+                '}';
+    }
 }

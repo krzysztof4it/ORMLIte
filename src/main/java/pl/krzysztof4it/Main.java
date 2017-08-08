@@ -26,7 +26,7 @@ public class Main {
 
 
         // this uses h2 but you can change it to match your database
-        String databaseUrl = "jdbc:sqlite:databaseBook"; /*SQLite */
+        String databaseUrl = "jdbc:sqlite:databaseBook2"; /*SQLite */
         String databaseUrlH2 = "jdbc:h2:./databaseBook";
 
 
@@ -62,9 +62,22 @@ public class Main {
         book.setBorrowed(true);
         book.setPrice(22.50);
 
-        Dao<Book, ?> dao = DaoManager.createDao(connectionSource, Book.class);
+        /*Object DAO and ID type*/
+        Dao<Book, Integer> dao = DaoManager.createDao(connectionSource, Book.class);
+
 
         dao.create(book);
+        System.out.println(book);
+
+        book.setTitle("Hobbit");
+        dao.update(book);
+        System.out.println("Po update " + book);
+        dao.delete(book);
+        System.out.println("Po delete " + book);
+
+        book = dao.queryForId(book.getId());
+        System.out.println("Po query " + book);
+
         // close the connection source - zamknięcie połaczenia z DB
         connectionSource.close();
 
